@@ -10,7 +10,7 @@ type Config struct {
 	// Logs  LogConfig
 	// DB    PostgresConfig
 	Port  string
-	AllowedOrigins []string
+	AllowedOrigin string
 }
 
 // type LogConfig struct {
@@ -38,9 +38,7 @@ func LoadConfig() (*Config, error) {
 		// 	URL:      os.Getenv("POSTGRES_URL"),
 		// 	Port:     os.Getenv("POSTGRES_PORT"),
 		// },
-		AllowedOrigins: []string{
-			os.Getenv("ALLOWED_ORIGINS"),
-		},
+		AllowedOrigin: os.Getenv("ALLOWED_ORIGIN"),
 	}
 
 	return cfg, nil

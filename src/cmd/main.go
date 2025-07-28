@@ -27,7 +27,7 @@ func main() {
 	api.RegisterRoutes(mux, cfg)
 
 	// Apply CORS middleware
-	handler := middleware.CORS(cfg.AllowedOrigins)(mux)
+	handler := middleware.CORS(cfg.AllowedOrigin)(mux)
 
 	// Start the server
 	fmt.Printf("Server running on port %s\n", port)
