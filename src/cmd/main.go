@@ -27,11 +27,12 @@ func main() {
 	api.RegisterRoutes(mux, cfg)
 
 	// Apply CORS middleware
-	handler := middleware.CORS(cfg.AllowedOrigin)(mux)
+	corsHandler := middleware.CORS(cfg.AllowedOrigin)(mux)
+	logHandler := middleware.Logging(corsHandler)
 
 	// Start the server
 	fmt.Printf("Server running on port %s\n", port)
-	err := http.ListenAndServe(port, handler)
+	err := http.ListenAndServe(port, logHandler)
 	if err != nil {
 		log.Fatalf("Could not start server: %v", err)
 	}
