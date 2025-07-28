@@ -1,7 +1,8 @@
 /bin/
-/dist/
+/app/
 /*.exe
 *.log
 *.out
 *.test
 .env
+Dockerfile
