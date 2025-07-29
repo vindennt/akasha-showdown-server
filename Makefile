@@ -1,6 +1,22 @@
-.PHONY: run
+IMAGE_NAME = akasha-showdown-server
+CONTAINER_NAME = akasha-showdown-server
+PORT = 8181
+
+.PHONY: build run stop clean rebuild
+
+build:
+	docker build -t $(IMAGE_NAME) .
 
 run:
-# 	go run src/cmd/main.go
-	docker build -t akasha-showdown-server .
-	docker run -p 8181:8181 akasha-showdown-server
+	docker run --rm -d --name $(CONTAINER_NAME) -p $(PORT):$(PORT) $(IMAGE_NAME)
+
+stop:
+	docker stop $(CONTAINER_NAME)
+
+clean: stop
+	docker rmi $(IMAGE_NAME)
+
+rebuild:
+	$(MAKE) stop
+	$(MAKE) build
+	$(MAKE) run

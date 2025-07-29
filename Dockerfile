@@ -1,11 +1,10 @@
-FROM golang:1.24
+FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN go mod download
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY . .
-RUN go build -o app ./src/cmd
 
-CMD ["./app"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8181"]

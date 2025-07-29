@@ -1,1 +1,1 @@
-# Go Server for webapp
+# Python FastAPI Server for Akasha Showdown webapp
