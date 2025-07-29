@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .config import settings
+from .core.config import settings
 # from .middleware.logger import mw_logger
-from .controllers import health
+from .routes import health
 
 app = FastAPI()
 
