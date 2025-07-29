@@ -2,7 +2,7 @@ IMAGE_NAME = akasha-showdown-server
 CONTAINER_NAME = akasha-showdown-server
 PORT = 8181
 
-.PHONY: build run stop clean rebuild
+.PHONY: build run stop clean make rebuild
 
 build:
 	docker build -t $(IMAGE_NAME) .
@@ -15,6 +15,10 @@ stop:
 
 clean: stop
 	docker rmi $(IMAGE_NAME)
+
+make:
+	$(MAKE) build
+	$(MAKE) run
 
 rebuild:
 	$(MAKE) stop
