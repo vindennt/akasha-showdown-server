@@ -30,7 +30,11 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = "your_password"
     POSTGRES_DB: str = "akasha_showdown"
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_ignore_empty=True,
+        extra="ignore",
+        )
 
     # combine CORS origins
     @property
