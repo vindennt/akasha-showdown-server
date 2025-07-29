@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.routes import health
+from app.api.router import api_router
 
 app = FastAPI()
 
@@ -14,7 +14,7 @@ if settings.all_cors_origins:
         allow_headers=["*"],
     )
 
-app.include_router(health.router)
+app.include_router(api_router)
 
 @app.get("/", tags=["root"])
 async def root():
