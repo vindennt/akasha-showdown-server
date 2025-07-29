@@ -1,23 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .core.config import settings
-# from .middleware.logger import mw_logger
-from .routes import health
+from app.core.config import settings
+from app.routes import health
 
 app = FastAPI()
 
-origins = [settings.web_origin]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# TODO: Reimplement for robust logging
-# app.middleware("http")(mw_logger)
+if settings.all_cors_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.all_cors_origins,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
 app.include_router(health.router)
 

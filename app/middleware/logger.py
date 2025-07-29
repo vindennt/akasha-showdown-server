@@ -9,6 +9,7 @@
 # # This middleware logs the request method, path, protocol, client IP and port,
 # # and the response status code, content length, and processing time.
 # # TODO: Make more robust
+# # Reimplement with # app.middleware("http")(mw_logger) in main.py
 # async def mw_logger(request: Request, call_next):
 #     start_time = time.perf_counter()
 
