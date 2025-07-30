@@ -1,3 +1,5 @@
+# Adapted from https://github.com/AtticusZeller/fastapi_supabase_template?tab=readme-ov-file
+
 import uuid
 
 from sqlmodel import SQLModel, Field
