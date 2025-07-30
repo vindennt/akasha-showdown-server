@@ -3,6 +3,8 @@ from pydantic import (
     AnyUrl,
     BeforeValidator,
 )
+
+from pydantic_core import MultiHostUrl
 from typing import Annotated, Any, Literal, Self
 
 # Parse CORS lists from JSON form or comma-separated form
@@ -15,14 +17,17 @@ def parse_cors(v: Any) -> list[str] | str:
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "akasha-showdown-server"
+    DOMAIN: str = "localhost"
     PORT: int = 80
 
     FRONTEND_HOST: str = "http://localhost:3000"
     # Uses parse_cors beforehand to ensure typematch, else defaults to empty
     BACKEND_CORS_ORIGINS: Annotated[list[AnyUrl] | str, BeforeValidator(parse_cors)] = []
+    FIRST_SUPERUSER: str = "admin@example.com"
+    FIRST_SUPERUSER_PASSWORD: str = "password123"
 
-    SUPABASE_URL: str = "your_supabase_url"
-    SUPABASE_KEY: str = "your_supabase_key"
+    DATABASE_URL: str = "your_database_url"
+    DATABASE_KEY: str = "your_database_key"
 
     POSTGRES_SERVER: str = "localhost"
     POSTGRES_PORT: int = 5432

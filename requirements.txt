@@ -3,3 +3,8 @@ uvicorn
 pydantic
 pydantic-settings
 python-dotenv
+sqlmodel
+psycopg2-binary
+psycopg
+alembic
+supabase
