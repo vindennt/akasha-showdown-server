@@ -58,6 +58,11 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
+def include_object(object, name, type_, reflected, compare_to):
+    # Exclude the 'users' table in the 'auth' schema from migrations
+    if type_ == "table" and name == "users" and object.schema == "auth":
+        return False
+    return True
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
@@ -80,6 +85,7 @@ def run_migrations_online() -> None:
             target_metadata=target_metadata,
             compare_type=True,
             dialect_opts={"paramstyle": "named"},
+            include_object=include_object,
         )
 
         with context.begin_transaction():

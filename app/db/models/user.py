@@ -1,10 +1,16 @@
-from sqlmodel import SQLModel, Field
-from typing import Optional
 import uuid
 
+from sqlmodel import SQLModel, Field
+from pydantic import EmailStr
+
 class User(SQLModel, table=True):
-    id: Optional[uuid.UUID] = Field(default_factory=uuid.uuid4, primary_key=True)
-    email: str = Field(index=True, unique=True, nullable=False)
-    username: Optional[str]
+    """WARNING: Don't migrate this using alembic, it should already exist in the default supabase configuration."""
+
+    __tablename__ = "users"
+    __table_args__ = {"schema": "auth", "keep_existing": True}
+
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    email: EmailStr = Field(max_length=255)
+    username: str = Field(max_length=255)
     wins: int = Field(default=0, nullable=False)
     losses: int = Field(default=0, nullable=False)
