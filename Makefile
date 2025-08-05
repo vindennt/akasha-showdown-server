@@ -2,7 +2,7 @@ IMAGE_NAME = akasha-showdown-server
 CONTAINER_NAME = akasha-showdown-server
 PORT = 8181
 
-.PHONY: build run stop clean make rebuild
+.PHONY: build run stop clean make rebuild init_db
 
 build:
 	docker build -t $(IMAGE_NAME) .
@@ -24,3 +24,6 @@ rebuild:
 	$(MAKE) stop
 	$(MAKE) build
 	$(MAKE) run
+
+init_db:
+	python -m app.db.init_db
