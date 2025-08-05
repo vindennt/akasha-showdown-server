@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, EmailStr
-from supabase import create_client, Client
+from supabase import create_client, Client, AuthApiError 
+
 
 import logging
 
