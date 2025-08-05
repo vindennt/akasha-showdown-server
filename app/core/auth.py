@@ -9,7 +9,7 @@ from supabase import AsyncClientOptions
 from supabase._async.client import AsyncClient, create_client
 
 from app.core.config import settings
-from app.schemas.auth import UserIn
+from app.db.schemas.auth import UserIn
 
 
 async def get_super_client() -> AsyncClient:
@@ -31,7 +31,8 @@ SuperClient = Annotated[AsyncClient, Depends(get_super_client)]
 
 # auto get token from header
 reusable_oauth2 = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.API_ V1_STR}/login/access-token"
+    # tokenUrl=f"{settings.API_V_STR}/login/access-token"
+    tokenUrl=f"/login/access-token"
 )
 TokenDep = Annotated[str, Depends(reusable_oauth2)]
 
