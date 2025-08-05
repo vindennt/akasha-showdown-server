@@ -7,7 +7,7 @@ import logging
 
 from app.core.config import settings
 
-router = APIRouter(tags=["auth"])
+router = APIRouter(prefix="/auth", tags=["auth"])
 logger = logging.getLogger(__name__)
 
 super_client: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
@@ -35,7 +35,7 @@ def format_auth_response(user, session, message: str):
     }
 
 
-@router.post("/auth/signup")
+@router.post("/signup")
 async def auth_signup(payload: AuthRequest):
     try:
         response = super_client.auth.sign_up({
@@ -53,7 +53,7 @@ async def auth_signup(payload: AuthRequest):
 
 
 
-@router.post("/auth/signin")
+@router.post("/signin")
 async def auth_signin(payload: AuthRequest):
     try:
         response = super_client.auth.sign_in_with_password({
