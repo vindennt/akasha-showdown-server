@@ -2,15 +2,10 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, EmailStr
 from supabase import create_client, Client, AuthApiError 
 
-
 import logging
-
-from app.core.config import settings
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 logger = logging.getLogger(__name__)
-
-super_client: Client = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
 
 class AuthRequest(BaseModel):
     email: EmailStr
@@ -34,11 +29,10 @@ def format_auth_response(user, session, message: str):
         "message": message
     }
 
-
 @router.post("/signup")
-async def auth_signup(payload: AuthRequest):
+async def auth_signup(super_client: SuperClient, payload: AuthRequest):
     try:
-        response = super_client.auth.sign_up({
+        response = await super_client.auth.sign_up({
             "email": payload.email,
             "password": payload.password,
         })
@@ -51,12 +45,10 @@ async def auth_signup(payload: AuthRequest):
         logger.exception("Unexpected error during signup")
         raise HTTPException(status_code=500, detail="Unexpected error: " + str(e))
 
-
-
 @router.post("/signin")
-async def auth_signin(payload: AuthRequest):
+async def auth_signin(super_client: SuperClient, payload: AuthRequest):
     try:
-        response = super_client.auth.sign_in_with_password({
+        response = await super_client.auth.sign_in_with_password({
             "email": payload.email,
             "password": payload.password,
         })
