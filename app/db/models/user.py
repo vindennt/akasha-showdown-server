@@ -13,6 +13,3 @@ class User(SQLModel, table=True):
 
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     email: EmailStr = Field(max_length=255)
-    username: str = Field(max_length=255)
-    wins: int = Field(default=0, nullable=False)
-    losses: int = Field(default=0, nullable=False)
