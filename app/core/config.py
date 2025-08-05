@@ -26,14 +26,11 @@ class Settings(BaseSettings):
     FIRST_SUPERUSER: str = "admin@example.com"
     FIRST_SUPERUSER_PASSWORD: str = "password123"
 
+    SUPABASE_URL: str = "your_supabase_url_here"
+    SUPABASE_KEY: str = "your_supabase_key_here"
+
     DATABASE_URL: str = "your_database_url"
     DATABASE_KEY: str = "your_database_key"
-
-    POSTGRES_SERVER: str = "localhost"
-    POSTGRES_PORT: int = 5432
-    POSTGRES_USER: str = "postgres"
-    POSTGRES_PASSWORD: str = "your_password"
-    POSTGRES_DB: str = "akasha_showdown"
 
     model_config = SettingsConfigDict(
         env_file=".env",
