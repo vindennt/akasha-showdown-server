@@ -6,7 +6,7 @@ from app.api.dependencies import CurrentUser, CurrentSession
 from app.db.crud.item_crud import item
 from app.db.models.item import Item, ItemCreate, ItemUpdate
 
-router = APIRouter(prefix="/items", tags=["items"])
+router = APIRouter(prefix="/item", tags=["items"])
 
 @router.post("/create-item")
 async def create_item(
