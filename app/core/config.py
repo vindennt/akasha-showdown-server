@@ -17,7 +17,6 @@ def parse_cors(v: Any) -> list[str] | str:
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "akasha-showdown-server"
-    DOMAIN: str = "localhost"
     PORT: int = 80
 
     FRONTEND_HOST: str = "http://localhost:3000"
