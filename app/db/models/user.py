@@ -5,6 +5,8 @@ import uuid
 from sqlmodel import SQLModel, Field
 from pydantic import EmailStr
 
+# User model representing users in the auth schema
+# Supabase manages this table, but if using your own service you may need to create it manually
 class User(SQLModel, table=True):
     """WARNING: Don't migrate this using alembic, it should already exist in the default supabase configuration."""
 

@@ -5,11 +5,6 @@ from app.api.router import api_router
 from app.core.db import engine, init_db
 from sqlmodel import Session
 
-import logging
-
-logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
-
 app = FastAPI()
 
 if settings.all_cors_origins:
@@ -29,6 +24,5 @@ async def root():
 
 @app.on_event("startup")
 def on_startup():
-    logger.info(f"✅ Allowed CORS origins: {settings.all_cors_origins}")
     with Session(engine) as session:
         init_db(session)

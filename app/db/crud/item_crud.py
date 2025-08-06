@@ -5,7 +5,7 @@ from sqlmodel import Session
 from app.db.crud.base_crud import CRUDBase
 from app.db.models.item import Item, ItemCreate, ItemUpdate
 
-
+# CRUD operations for Item model
 class CRUDItem(CRUDBase[Item, ItemCreate, ItemUpdate]):
     def create(
         self, session: Session, *, owner_id: uuid.UUID, obj_in: ItemCreate

@@ -12,7 +12,7 @@ ModelType = TypeVar("ModelType", bound=UserOwnedBase)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=SQLModel)
 UpdateSchemaType = TypeVar("UpdateSchemaType", bound=SQLModel)
 
-
+# Generic CRUD operations that can be reused for different models
 class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
     def __init__(self, model: type[ModelType]):
         """

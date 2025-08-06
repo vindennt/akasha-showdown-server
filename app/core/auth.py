@@ -11,7 +11,7 @@ from supabase._async.client import AsyncClient, create_client
 from app.core.config import settings
 from app.db.schemas.auth import UserIn
 
-
+# Get the client for supabase database
 async def get_super_client() -> AsyncClient:
     """for validation access_token init at life span event"""
     super_client = await create_client(
@@ -26,8 +26,8 @@ async def get_super_client() -> AsyncClient:
     return super_client
 
 
+# Dependency for the database client
 SuperClient = Annotated[AsyncClient, Depends(get_super_client)]
-
 
 # auto get token from header
 reusable_oauth2 = OAuth2PasswordBearer(
@@ -36,7 +36,7 @@ reusable_oauth2 = OAuth2PasswordBearer(
 )
 TokenDep = Annotated[str, Depends(reusable_oauth2)]
 
-
+# get current user from token and validate same time
 async def get_current_user(token: TokenDep, super_client: SuperClient) -> UserIn:
     """get current user from token and  validate same time"""
     user_response = await super_client.auth.get_user(jwt=token)

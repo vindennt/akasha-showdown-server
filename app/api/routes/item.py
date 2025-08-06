@@ -8,6 +8,8 @@ from app.db.models.item import Item, ItemCreate, ItemUpdate
 
 router = APIRouter(prefix="/item", tags=["items"])
 
+# CRUD operations for Item model
+
 @router.post("/create-item")
 async def create_item(
     item_in: ItemCreate, user: CurrentUser, session: CurrentSession

@@ -15,6 +15,7 @@ def parse_cors(v: Any) -> list[str] | str:
         return v
     raise ValueError(f"Invalid CORS value: {v}")
 
+# Centralized global settings
 class Settings(BaseSettings):
     PROJECT_NAME: str = "akasha-showdown-server"
     PORT: int = 80

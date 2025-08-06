@@ -5,6 +5,9 @@ from sqlmodel import Session
 
 from app.core.db import engine, init_db
 
+# This file is run once during itial deployment to create the first superuser
+# and any other initial data required
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 

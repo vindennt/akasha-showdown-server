@@ -13,6 +13,7 @@ class AuthRequest(BaseModel):
     email: EmailStr
     password: str
 
+# Helper function to format the authentication response
 def format_auth_response(session, message: str):
     if not session:
         raise HTTPException(status_code=401, detail="Authentication failed")
@@ -31,6 +32,7 @@ def format_auth_response(session, message: str):
         "message": message
     }
 
+# Signup endpoint
 @router.post("/signup")
 async def auth_signup(super_client: SuperClient, payload: AuthRequest):
     try:
@@ -47,6 +49,7 @@ async def auth_signup(super_client: SuperClient, payload: AuthRequest):
         logger.exception("Unexpected error during signup")
         raise HTTPException(status_code=500, detail="Unexpected error: " + str(e))
 
+# Signin endpoint
 @router.post("/signin")
 async def auth_signin(super_client: SuperClient, payload: AuthRequest):
     try:
