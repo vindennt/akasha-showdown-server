@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, EmailStr
-from supabase import create_client, Client, AuthApiError 
+from supabase import create_client, Client, AuthApiError
+
+from app.core.auth import SuperClient
 
 import logging
 
@@ -11,20 +13,20 @@ class AuthRequest(BaseModel):
     email: EmailStr
     password: str
 
-def format_auth_response(user, session, message: str):
-    if not user or not session:
+def format_auth_response(session, message: str):
+    if not session:
         raise HTTPException(status_code=401, detail="Authentication failed")
 
     return {
-        "user": {
-            "id": user.id,
-            "email": user.email,
-        },
         "session": {
             "access_token": session.access_token,
             "refresh_token": session.refresh_token,
             "expires_in": session.expires_in,
             "token_type": session.token_type,
+            "user": {
+                "id": session.user.id,
+                "email": session.user.email,
+            }
         },
         "message": message
     }
@@ -37,7 +39,7 @@ async def auth_signup(super_client: SuperClient, payload: AuthRequest):
             "password": payload.password,
         })
 
-        return format_auth_response(response.user, response.session, "Signup & signin successful")
+        return format_auth_response(response.session, "Signup & signin successful")
 
     except AuthApiError as e:
         raise HTTPException(status_code=422, detail=str(e))
@@ -52,7 +54,7 @@ async def auth_signin(super_client: SuperClient, payload: AuthRequest):
             "email": payload.email,
             "password": payload.password,
         })
-        return format_auth_response(response.user, response.session, "Signin successful")
+        return format_auth_response(response.session, "Signin successful")
 
     except AuthApiError as e:
         raise HTTPException(status_code=401, detail="Authentication failed: " + str(e))
